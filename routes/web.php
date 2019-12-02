@@ -12,5 +12,5 @@
 */
 
 Route::get('/', function () {
-    return response()->json(['ok'=>'ok']);
+    return response()->json(['ok'=>'pos ya estaría']);
 });
