@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\User;
+use App\Http\Requests\GroupRequest;
+use App\Models\Group;
+use Illuminate\Http\Request;
 
-
-/**
- * Class UserController
- * @package App\Http\Controllers\Admin
- */
-class UserController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +18,7 @@ class UserController extends Controller
     {
         return response()->json([
             'data' => [
-                'users' => User::all()
+                'groups' => Group::all()
             ]
         ],200);
     }
@@ -30,33 +26,37 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param UserRequest $request
+     * @param GroupRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UserRequest $request)
+    public function store(GroupRequest $request)
     {
         $request->validated();
-        $user = User::create($request->input());
+
+
+        $group = Group::create($request->input());
+
+
         return response()->json(
             ['data' => [
-                'user' => $user
+                'group' => $group
             ],
                 'message' => 'success'
             ]
-        ,201);
+            ,201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int User $user
+     * @param int Group $group
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $user)
+    public function show(Group $group)
     {
         return response()->json([
             'data' => [
-                'users' => $user
+                'groups' => $group
             ]
         ],200);
     }
@@ -64,50 +64,50 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UserRequest $request
-     * @param int User $user
+     * @param GroupRequest $request
+     * @param int Group $group
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(GroupRequest $request, Group $group)
     {
         $request->validated();
 
-        $user->update($request->input());
+        $group->update($request->input());
         return response()->json(
             ['data' => [
-                'user' => $user
+                'group' => $group
             ],
                 'message' => 'success'
             ]
-        ,200);
+            ,200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int User $user
+     * @param int Group $group
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(Group $group)
     {
 
         try {
-            $user->delete();
+            $group->delete();
         } catch (\Exception $e) {
             return response()->json(
                 [
                     'error' => [
                         $e
                     ],
-                    'message' => 'fail'
+                    'message' => 'Ha fallado la creación del grupo'
                 ]
-            ,400);
+                ,400);
         }
         return response()->json(
             [
                 'message' => 'success'
             ]
-      ,204);
+            ,204);
     }
 }

@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\User;
+use App\Http\Requests\TaskRequest;
+use App\Models\Task;
 
+use Illuminate\Http\Request;
 
-/**
- * Class UserController
- * @package App\Http\Controllers\Admin
- */
-class UserController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +19,7 @@ class UserController extends Controller
     {
         return response()->json([
             'data' => [
-                'users' => User::all()
+                'tasks' => Task::all()
             ]
         ],200);
     }
@@ -30,33 +27,37 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param UserRequest $request
+     * @param TaskRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UserRequest $request)
+    public function store(TaskRequest $request)
     {
         $request->validated();
-        $user = User::create($request->input());
+
+
+        $task = Task::create($request->input());
+
+
         return response()->json(
             ['data' => [
-                'user' => $user
+                'task' => $task
             ],
                 'message' => 'success'
             ]
-        ,201);
+            ,201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int User $user
+     * @param int Task $task
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $user)
+    public function show(Task $task)
     {
         return response()->json([
             'data' => [
-                'users' => $user
+                'tasks' => $task
             ]
         ],200);
     }
@@ -64,50 +65,50 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UserRequest $request
-     * @param int User $user
+     * @param TaskRequest $request
+     * @param int Task $task
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(TaskRequest $request, Task $task)
     {
         $request->validated();
 
-        $user->update($request->input());
+        $task->update($request->input());
         return response()->json(
             ['data' => [
-                'user' => $user
+                'task' => $task
             ],
                 'message' => 'success'
             ]
-        ,200);
+            ,200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int User $user
+     * @param int Task $task
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(Task $task)
     {
 
         try {
-            $user->delete();
+            $task->delete();
         } catch (\Exception $e) {
             return response()->json(
                 [
                     'error' => [
                         $e
                     ],
-                    'message' => 'fail'
+                    'message' => 'Ha fallado la creación de la tarea'
                 ]
-            ,400);
+                ,400);
         }
         return response()->json(
             [
                 'message' => 'success'
             ]
-      ,204);
+            ,204);
     }
 }

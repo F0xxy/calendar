@@ -3,15 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\User;
+use App\Http\Requests\EventRequest;
+use App\Models\Event;
 
-
-/**
- * Class UserController
- * @package App\Http\Controllers\Admin
- */
-class UserController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +17,7 @@ class UserController extends Controller
     {
         return response()->json([
             'data' => [
-                'users' => User::all()
+                'events' => Event::all()
             ]
         ],200);
     }
@@ -30,33 +25,37 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param UserRequest $request
+     * @param EventRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UserRequest $request)
+    public function store(EventRequest $request)
     {
         $request->validated();
-        $user = User::create($request->input());
+
+
+        $event = Event::create($request->input());
+
+
         return response()->json(
             ['data' => [
-                'user' => $user
+                'event' => $event
             ],
                 'message' => 'success'
             ]
-        ,201);
+            ,201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int User $user
+     * @param int Event $event
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $user)
+    public function show(Event $event)
     {
         return response()->json([
             'data' => [
-                'users' => $user
+                'events' => $event
             ]
         ],200);
     }
@@ -64,50 +63,50 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UserRequest $request
-     * @param int User $user
+     * @param EventRequest $request
+     * @param int Event $event
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(EventRequest $request, Event $event)
     {
         $request->validated();
 
-        $user->update($request->input());
+        $event->update($request->input());
         return response()->json(
             ['data' => [
-                'user' => $user
+                'event' => $event
             ],
                 'message' => 'success'
             ]
-        ,200);
+            ,200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int User $user
+     * @param int Event $event
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(Event $event)
     {
 
         try {
-            $user->delete();
+            $event->delete();
         } catch (\Exception $e) {
             return response()->json(
                 [
                     'error' => [
                         $e
                     ],
-                    'message' => 'fail'
+                    'message' => 'Ha fallado la creación de la evento o cita'
                 ]
-            ,400);
+                ,400);
         }
         return response()->json(
             [
                 'message' => 'success'
             ]
-      ,204);
+            ,204);
     }
 }

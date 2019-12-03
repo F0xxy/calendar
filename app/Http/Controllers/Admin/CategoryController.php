@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\User;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 
 /**
- * Class UserController
+ * Class CategoryController
  * @package App\Http\Controllers\Admin
  */
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,92 +22,95 @@ class UserController extends Controller
     {
         return response()->json([
             'data' => [
-                'users' => User::all()
+                'categories' => Category::all()
             ]
-        ],200);
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param UserRequest $request
+     * @param CategoryRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UserRequest $request)
+    public function store(CategoryRequest $request)
     {
         $request->validated();
-        $user = User::create($request->input());
+
+
+        $category = Category::create($request->input());
+
+
         return response()->json(
             ['data' => [
-                'user' => $user
+                'category' => $category
             ],
                 'message' => 'success'
             ]
-        ,201);
+            , 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int User $user
+     * @param int Category $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $user)
+    public function show(Category $category)
     {
         return response()->json([
             'data' => [
-                'users' => $user
+                'category' => $category
             ]
-        ],200);
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param UserRequest $request
-     * @param int User $user
+     * @param CategoryRequest $request
+     * @param int Category $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(CategoryRequest $request, Category $category)
     {
         $request->validated();
 
-        $user->update($request->input());
+        $category->update($request->input());
         return response()->json(
             ['data' => [
-                'user' => $user
+                'category' => $category
             ],
                 'message' => 'success'
             ]
-        ,200);
+            , 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int User $user
+     * @param int Category $category
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(Category $category)
     {
-
         try {
-            $user->delete();
+            $category->delete();
         } catch (\Exception $e) {
             return response()->json(
                 [
                     'error' => [
                         $e
                     ],
-                    'message' => 'fail'
+                    'message' => 'Ha fallado la creación de la categoría'
                 ]
-            ,400);
+                , 400);
         }
         return response()->json(
             [
                 'message' => 'success'
             ]
-      ,204);
+            , 204);
     }
 }

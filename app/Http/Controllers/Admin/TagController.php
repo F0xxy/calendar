@@ -1,17 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\User;
+use App\Http\Requests\TagRequest;
+use App\Models\Tag;
 
+use Illuminate\Http\Request;
 
-/**
- * Class UserController
- * @package App\Http\Controllers\Admin
- */
-class UserController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +18,7 @@ class UserController extends Controller
     {
         return response()->json([
             'data' => [
-                'users' => User::all()
+                'tags' => Tag::all()
             ]
         ],200);
     }
@@ -30,33 +26,37 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param UserRequest $request
+     * @param TagRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UserRequest $request)
+    public function store(TagRequest $request)
     {
         $request->validated();
-        $user = User::create($request->input());
+
+
+        $tag = Tag::create($request->input());
+
+
         return response()->json(
             ['data' => [
-                'user' => $user
+                'tag' => $tag
             ],
                 'message' => 'success'
             ]
-        ,201);
+            ,201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int User $user
+     * @param int Tag $tag
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $user)
+    public function show(Tag $tag)
     {
         return response()->json([
             'data' => [
-                'users' => $user
+                'tags' => $tag
             ]
         ],200);
     }
@@ -64,50 +64,50 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UserRequest $request
-     * @param int User $user
+     * @param TagRequest $request
+     * @param int Tag $tag
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(TagRequest $request, Tag $tag)
     {
         $request->validated();
 
-        $user->update($request->input());
+        $tag->update($request->input());
         return response()->json(
             ['data' => [
-                'user' => $user
+                'tag' => $tag
             ],
                 'message' => 'success'
             ]
-        ,200);
+            ,200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int User $user
+     * @param int Tag $tag
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(Tag $tag)
     {
 
         try {
-            $user->delete();
+            $tag->delete();
         } catch (\Exception $e) {
             return response()->json(
                 [
                     'error' => [
                         $e
                     ],
-                    'message' => 'fail'
+                    'message' => 'Ha fallado la creación de la etiqueta'
                 ]
-            ,400);
+                ,400);
         }
         return response()->json(
             [
                 'message' => 'success'
             ]
-      ,204);
+            ,204);
     }
 }

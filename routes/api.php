@@ -16,6 +16,20 @@
 Route::get('/', function () {
     return response()->json(['ok'=>'pos ya estaría']);
 });
-Route::resource('user', "Admin\UserController");
+
+Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
+
+Route::prefix('admin')->namespace('Admin')->middleware([
+
+])->group(function (){
+    Route::resource('user', "UserController")->except(['create','edit']);
+    Route::resource('task', "TaskController")->except(['create','edit']);
+    Route::resource('taskList', "TaskListController")->except(['create','edit']);
+    Route::resource('group', "GroupController")->except(['create','edit']);
+    Route::resource('tag', "TagController")->except(['create','edit']);
+    Route::resource('event', "EventController")->except(['create','edit']);
+});
+
 
 
