@@ -25,6 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TaskList whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TaskList whereUserId($value)
  * @mixin \Eloquent
+ * @property string $name
+ * @property string $finished_at
+ * @property int $category_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TaskList whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TaskList whereFinishedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TaskList whereName($value)
  */
 class TaskList extends Model
 {

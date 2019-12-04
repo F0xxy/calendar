@@ -14,6 +14,7 @@ class EventTagTable extends Migration
     public function up()
     {
         Schema::create('event_tag', function (Blueprint $table) {
+
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events');
 

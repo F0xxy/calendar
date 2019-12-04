@@ -14,6 +14,7 @@ class TasklistTagTable extends Migration
     public function up()
     {
         Schema::create('tasklist_tag', function (Blueprint $table) {
+
             $table->unsignedBigInteger('task_list_id');
             $table->foreign('task_list_id')->references('id')->on('task_lists');
 

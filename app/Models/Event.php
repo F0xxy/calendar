@@ -32,6 +32,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereUserId($value)
  * @mixin \Eloquent
+ * @property string $started_at
+ * @property string $finished_at
+ * @property int|null $category_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereFinishedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereStartedAt($value)
  */
 class Event extends Model
 {

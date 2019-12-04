@@ -14,6 +14,7 @@ class EventUserTable extends Migration
     public function up()
     {
         Schema::create('user_event', function (Blueprint $table) {
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

@@ -17,8 +17,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $name
+ * @property string $description
+ * @property int|null $category_id
+ * @property string $state
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereState($value)
  */
 class Task extends Model
 {
-    //
+    const UNSTARTED = "UNSTARTED";
+    const STARTED = "STARTED";
+    const IN_PROGRESS = "IN_PROGRESS";
+    const COMPLETE = "COMPLETE";
+    const IGNORED = "IGNORED";
+
+
 }

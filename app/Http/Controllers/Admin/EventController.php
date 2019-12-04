@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EventRequest;
 use App\Models\Event;
 
+/**
+ * Class EventController
+ * @package App\Http\Controllers\Admin
+ */
 class EventController extends Controller
 {
     /**
