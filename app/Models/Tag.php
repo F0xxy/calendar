@@ -28,5 +28,27 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tag extends Model
 {
-    //
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    function events()
+    {
+        return $this->belongsToMany(Event::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    function taskLists()
+    {
+        return $this->belongsToMany(TaskList::class);
+    }
 }

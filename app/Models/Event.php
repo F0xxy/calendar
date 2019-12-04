@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Event
- * 
+ *
  * Este modelo representa eventos o citas del usuario
  *
  * @package App\Models
@@ -41,11 +41,29 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Event extends Model
 {
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function participant(){
         return $this->hasMany(User::class);
     }
 
-   public function author(){
-       return $this->belongsTo(User::class);
-   }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function owner(){
+        return $this->belongsTo(User::class);
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 }

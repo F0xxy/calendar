@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Task extends Model
 {
+
     const UNSTARTED = "UNSTARTED";
     const STARTED = "STARTED";
     const IN_PROGRESS = "IN_PROGRESS";
