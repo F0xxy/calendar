@@ -17,11 +17,11 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->mediumText('description');
+            $table->string('name')->default('unknown list');
+            $table->mediumText('description')->nullable();
 
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('taskList_id');
+            $table->foreign('taskList_id')->references('id')->on('task_lists');
 
             $table->enum('state', [
                 Task::UNSTARTED,

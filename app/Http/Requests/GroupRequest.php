@@ -13,7 +13,7 @@ class GroupRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required | min:5',
+            'description' => 'required | min:30',
+            'category_id'=>'numeric'
         ];
     }
 }

@@ -2,6 +2,11 @@
 
 namespace App;
 
+use App\Models\Category;
+use App\Models\Event;
+use App\Models\Group;
+use App\Models\Tag;
+use App\Models\TaskList;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,4 +72,39 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    function tags()
+    {
+        return $this->hasMany(Tag::class);
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    function taskLists()
+    {
+        return $this->hasMany(TaskList::class);
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

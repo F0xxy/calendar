@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,6 +29,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tag extends Model
 {
+    protected $fillable=[
+        'name',
+        'description'
+    ];
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

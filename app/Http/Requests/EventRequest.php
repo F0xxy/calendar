@@ -13,7 +13,7 @@ class EventRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required | min:5',
+            'description' => 'required | min:30',
+            'started_at' =>  'date',
+            'finished_at' =>  'date|after:started_at',
+            'category_id'=>'numeric'
         ];
     }
 }

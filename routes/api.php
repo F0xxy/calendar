@@ -1,8 +1,6 @@
 <?php
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,23 +11,33 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/', function () {
-    return response()->json(['ok'=>'pos ya estaría']);
-});
 
+Route::post('/register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
-Route::post('register', 'AuthController@register');
-
-Route::prefix('admin')->namespace('Admin')->middleware([
-
-])->group(function (){
-    Route::resource('user', "UserController")->except(['create','edit']);
-    Route::resource('task', "TaskController")->except(['create','edit']);
-    Route::resource('taskList', "TaskListController")->except(['create','edit']);
-    Route::resource('group', "GroupController")->except(['create','edit']);
-    Route::resource('tag', "TagController")->except(['create','edit']);
-    Route::resource('event', "EventController")->except(['create','edit']);
+Route::post('login', 'AuthController@login');
+Route::prefix('password')->group(function (){
+    Route::post('forgot','Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('reset','Auth\ResetPasswordController@reset');
 });
+
+//Route::middleware('auth:api')->
+Route::group([
+    'middleware' => 'auth:api'
+], function () {
+    Route::get('logout', 'AuthController@logout');
+    Route::get('user', 'AuthController@user');
+
+});
+Route::middleware('auth:api')->group(function (){
+    Route::apiResource('task', "TaskController");
+    Route::apiResource('tasklist', "TaskListController");
+    Route::apiResource('group', "GroupController");
+    Route::apiResource('tag', "TagController");
+    Route::apiResource('event', "EventController");
+    Route::apiResource('category', "CategoryController");
+});
+
+
 
 
 

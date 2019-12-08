@@ -13,7 +13,7 @@ class TaskRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required | min:5',
+            'description' => 'required | min:30',
+            'state'=> 'same:'.
+                Task::UNSTARTED.','.
+                Task::STARTED.','.
+                Task::IN_PROGRESS.','.
+                Task::COMPLETE.','.
+                Task::IGNORED.',',
+            'taskList_id'=>'numeric'
         ];
     }
 }

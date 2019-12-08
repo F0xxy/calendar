@@ -34,18 +34,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Group extends Model
 {
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function contacts(){
-        return $this->hasMany(User::class);
-    }
+    protected $fillable=['name' ,
+        'description',
+        'category_id',
+        ];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function owner(){
         return $this->belongsTo(User::class);
     }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function contacts(){
+        return $this->belongsToMany(User::class);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

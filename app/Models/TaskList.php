@@ -35,22 +35,42 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TaskList extends Model
 {
+    protected $fillable = [
+        'name',
+        'description',
+        'finished_at',
+        'category_id'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function owner(){
+    public function owner()
+    {
         return $this->belongsTo(User::class);
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags(){
+    public function tags()
+    {
         return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function task()
+    {
+        return $this->hasMany(Task::class);
     }
 }

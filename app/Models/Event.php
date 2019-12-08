@@ -41,29 +41,45 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Event extends Model
 {
+    protected $fillable = [
+        'name',
+        'description',
+        'started_at',
+        'finished_at',
+        'category_id',
+        'user_id'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function participant(){
+    public function assistants()
+    {
         return $this->hasMany(User::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function owner(){
+    public function owner()
+    {
         return $this->belongsTo(User::class);
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags(){
+    public function tags()
+    {
         return $this->belongsToMany(Tag::class);
     }
+
 }

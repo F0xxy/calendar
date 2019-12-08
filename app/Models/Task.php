@@ -28,12 +28,31 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Task extends Model
 {
-
+    protected $fillable = [
+        'name',
+        'description',
+        'state',
+        'taskList_id'
+    ];
     const UNSTARTED = "UNSTARTED";
     const STARTED = "STARTED";
     const IN_PROGRESS = "IN_PROGRESS";
     const COMPLETE = "COMPLETE";
     const IGNORED = "IGNORED";
 
+    /**
+     * @return bool
+     */
+    public function done()
+    {
+        return ($this->state === Task::COMPLETE) ? true : false;
+    }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function taskList()
+    {
+        return $this->belongsTo(TaskList::class);
+    }
 }
